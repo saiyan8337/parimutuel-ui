@@ -5,7 +5,7 @@ const mkdirp = require("mkdirp");
 
 // require("dotenv").config({ path: __dirname + "/../.env" });
 
-const filePath = "../public/library/";
+const filePath = "./public/library/";
 
 AWS.config.update({
   accessKeyId: process.env.APP_AWS_ACCESS_KEY_ID,
@@ -20,15 +20,13 @@ const listParams = {
   Bucket: "trading-view-library",
 };
 
-mkdirp(filePath + "charting_library/bundles");
-mkdirp(filePath + "datafeeds/udf/dist");
-mkdirp(filePath + "datafeeds/udf/lib");
-mkdirp(filePath + "datafeeds/udf/src");
+mkdirp("./public/library/charting_library/bundles");
+mkdirp("./public/library/datafeeds/udf/dist");
+mkdirp("./public/library/datafeeds/udf/lib");
+mkdirp("./public/library/datafeeds/udf/src");
 
 s3.listObjectsV2(listParams, (err, data) => {
   if (err) console.log(err);
-
-  console.log(data);
 
   async.each(
     data.Contents,
