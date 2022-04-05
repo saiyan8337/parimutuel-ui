@@ -9410,10 +9410,10 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parimutuel-web3@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.1.tgz#fda62d2a751836e2b1aef278f82abee41ebc3df3"
-  integrity sha512-JtHp5PobFCZ9gloqg7aZRH1KBAh3lbyci0VqUonImxvpIWWVT8PVfQeRfOO/x7pObxk0DMvfmW/ju6hEKeDU+A==
+parimutuel-web3@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.2.tgz#a69b9e863c8d40dc7a987f36e47ab11830c3b2d9"
+  integrity sha512-yenhQje8C9tnQ73nadxRQCvfe0kNg4/wjeuTtO5fePaN1LSu/AfUwd+saCSp/nhz+wy1WwdKCgBT77nh/XcTjQ==
   dependencies:
     "@solana/spl-token" "^0.1.8"
     "@solana/wallet-adapter-base" "^0.7.0"
