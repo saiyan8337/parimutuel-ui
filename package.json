@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/s3.js && next build",
     "start": "next start -p $PORT",
     "type-check": "yarn tsc",
     "lint": "next lint",
@@ -14,7 +14,6 @@
     "node": ">=12"
   },
   "dependencies": {
-    "parimutuel-web3": "^0.0.1",
     "@chakra-ui/react": "^1.7.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -27,9 +26,13 @@
     "@solana/wallet-adapter-react": "^0.13.1",
     "@solana/wallet-adapter-wallets": "^0.11.3",
     "@solana/web3.js": "^1.31.0",
+    "async": "^3.2.3",
+    "aws-sdk": "^2.1107.0",
     "framer-motion": "^4",
     "google-spreadsheet": "^3.2.0",
+    "mkdirp": "^1.0.4",
     "next": "12.0.7",
+    "parimutuel-web3": "^0.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-loader-spinner": "^4.0.0",
