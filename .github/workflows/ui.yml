@@ -27,6 +27,16 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
         run: yarn install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
       - name: Linting
         run: yarn lint
       - name: Type checking
@@ -50,6 +60,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
       - name: Building UI
         run: yarn build
       - name: Login to Public ECR
