@@ -10,6 +10,11 @@ on:
     branches:
       - master
 
+env:
+  AWS_REGION: us-west-2
+  ECR_REGISTRY: 905383583349.dkr.ecr.eu-west-2.amazonaws.com
+  ECR_REPOSITORY: parimutuel-ui
+
 jobs:
   lint_tsc:
     name: Run ESLint and Type Check
@@ -22,16 +27,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
         run: yarn install
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-      - name: Copy library from S3
-        run: |
-          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
-          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
       - name: Linting
         run: yarn lint
       - name: Type checking
@@ -55,31 +50,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: Copy library from S3
-        run: |
-          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
-          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
-      - name: Set env vars - dev
-        run: |
-          cat << EOF > .env
-          APP_ENV=${{ secrets.DEV_APP_ENV }}
-          AUTHORITY_KEY_PAIR=${{ secrets.DEV_AUTHORITY_KEY_PAIR }}
-          GOOGLE_SERVICE_ACCOUNT_EMAIL=${{ secrets.DEV_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY=${{ secrets.DEV_GOOGLE_PRIVATE_KEY }}
-          GOOGLE_WHITELIST_SHEET_ID=${{ secrets.DEV_GOOGLE_WHITELIST_SHEET_ID }}
-          GOOGLE_BLACKLIST_SHEET_ID=${{ secrets.DEV_GOOGLE_BLACKLIST_SHEET_ID }}
-          IP_STACK_API_KEY=${{ secrets.DEV_IP_STACK_API_KEY }}
-          GEO_BLOCKING=${{ secrets.DEV_GEO_BLOCKING }}
-          PYTH_ORACLE=${{ secrets.DEV_PYTH_ORACLE }}
-          EOF
-      - name: Building Nextjs
+      - name: Building UI
         run: yarn build
-      - name: Deploy to EB development env
+      - name: Login to Public ECR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.ECR_REGISTRY }}
+          username: ${{ secrets.AWS_ACCESS_KEY_ID_BUILD_USER }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY_BUILD_USER }}
+        env:
+          AWS-REGION: ${{ env.AWS_REGION }}
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          IMAGE_TAG: latest
         run: |
-          echo "Installing Elastic Beanstalk Cli"
-          python -m pip install --upgrade pip
-          pip install awsebcli --upgrade
-          eb --version
-          eb init parimutuel-ui -p node.js --region ${{ secrets.AWS_REGION }}
-          eb deploy parimutuel-ui-dev
-          echo "Deploy finished"
+          # Build a docker container and push it to ECR
+          docker build -f crank.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
