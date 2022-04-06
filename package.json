@@ -11,7 +11,7 @@
     "clean": "rimraf .next yarn-error.log node_modules tsconfig.tsbuildinfo"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
