@@ -1,0 +1,95 @@
+#
+# Github Actions for UI
+#
+
+name: UI Workflow
+
+on:
+  pull_request:
+    types: ["opened", "closed"]
+    branches:
+      - main
+
+jobs:
+  lint_tsc:
+    name: Run ESLint and Type Check
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: yarn install
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
+      - name: Linting
+        run: yarn lint
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Type checking
+        run: yarn type-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  build:
+    if: github.event.pull_request.merged == true
+    needs: lint_tsc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: yarn install
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
+      - name: Set env vars - dev
+        run: |
+          cat << EOF > .env
+          APP_ENV=${{ secrets.DEV_APP_ENV }}
+          AUTHORITY_KEY_PAIR=${{ secrets.DEV_AUTHORITY_KEY_PAIR }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL=${{ secrets.DEV_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY=${{ secrets.DEV_GOOGLE_PRIVATE_KEY }}
+          GOOGLE_WHITELIST_SHEET_ID=${{ secrets.DEV_GOOGLE_WHITELIST_SHEET_ID }}
+          GOOGLE_BLACKLIST_SHEET_ID=${{ secrets.DEV_GOOGLE_BLACKLIST_SHEET_ID }}
+          IP_STACK_API_KEY=${{ secrets.DEV_IP_STACK_API_KEY }}
+          GEO_BLOCKING=${{ secrets.DEV_GEO_BLOCKING }}
+          PYTH_ORACLE=${{ secrets.DEV_PYTH_ORACLE }}
+          EOF
+      - name: Building Nextjs
+        run: yarn build
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Deploy to EB development env
+        run: |
+          echo "Installing Elastic Beanstalk Cli"
+          python -m pip install --upgrade pip
+          pip install awsebcli --upgrade
+          eb --version
+          eb init parimutuel-ui -p node.js --region ${{env.AWS_REGION}}
+          eb deploy parimutuel-ui-dev
+          echo "Deploy finished"

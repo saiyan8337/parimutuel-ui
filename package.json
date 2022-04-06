@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/s3.js && next build",
+    "build": "next build",
     "start": "next start",
     "type-check": "yarn tsc",
     "lint": "next lint",
