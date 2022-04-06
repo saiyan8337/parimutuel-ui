@@ -22,8 +22,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
         run: yarn install
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -36,12 +34,8 @@ jobs:
           aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
       - name: Linting
         run: yarn lint
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Type checking
         run: yarn type-check
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build:
     if: github.event.pull_request.merged == true
@@ -55,8 +49,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
         run: yarn install
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
