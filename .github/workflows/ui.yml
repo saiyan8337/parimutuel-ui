@@ -74,14 +74,12 @@ jobs:
           EOF
       - name: Building Nextjs
         run: yarn build
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Deploy to EB development env
         run: |
           echo "Installing Elastic Beanstalk Cli"
           python -m pip install --upgrade pip
           pip install awsebcli --upgrade
           eb --version
-          eb init parimutuel-ui -p node.js --region ${{env.AWS_REGION}}
+          eb init parimutuel-ui -p node.js --region ${{ secrets.AWS_REGION }}
           eb deploy parimutuel-ui-dev
           echo "Deploy finished"
