@@ -30,6 +30,8 @@ const plugins = [
   image,
 ];
 
+console.log(process.env);
+
 const nextConfig = {
   reactStrictMode: true,
   webpack(config) {
