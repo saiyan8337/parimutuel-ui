@@ -64,14 +64,20 @@ jobs:
         run: |
           aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
           aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
+      - name: Set env vars - dev
+        run: |
+          cat << EOF > .env
+          APP_ENV=${{ secrets.DEV_APP_ENV }}
+          PYTH_ORACLE=${{ secrets.DEV_PYTH_ORACLE }}
+          EOF
       - name: Building UI
         run: yarn build
       - name: Login to Public ECR
         uses: docker/login-action@v1
         with:
           registry: ${{ env.ECR_REGISTRY }}
-          username: ${{ secrets.AWS_ACCESS_KEY_ID_BUILD_USER }}
-          password: ${{ secrets.AWS_SECRET_ACCESS_KEY_BUILD_USER }}
+          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         env:
           AWS-REGION: ${{ env.AWS_REGION }}
       - name: Build, tag, and push image to Amazon ECR
