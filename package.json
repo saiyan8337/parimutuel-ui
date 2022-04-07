@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@storybook/react": "^6.4.9",
+    "@types/bn.js": "^5.1.0",
     "@types/google-spreadsheet": "^3.1.5",
     "@types/node": "^17.0.0",
     "@types/react": "17.0.37",
