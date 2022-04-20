@@ -63,19 +63,6 @@ jobs:
         run: |
           aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
           aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
-      - name: Set env vars - dev
-        run: |
-          cat << EOF > .env
-          APP_ENV=${{ secrets.DEV_APP_ENV }}
-          AUTHORITY_KEY_PAIR=${{ secrets.DEV_AUTHORITY_KEY_PAIR }}
-          GOOGLE_SERVICE_ACCOUNT_EMAIL=${{ secrets.DEV_GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY=${{ secrets.DEV_GOOGLE_PRIVATE_KEY }}
-          GOOGLE_WHITELIST_SHEET_ID=${{ secrets.DEV_GOOGLE_WHITELIST_SHEET_ID }}
-          GOOGLE_BLACKLIST_SHEET_ID=${{ secrets.DEV_GOOGLE_BLACKLIST_SHEET_ID }}
-          IP_STACK_API_KEY=${{ secrets.DEV_IP_STACK_API_KEY }}
-          GEO_BLOCKING=${{ secrets.DEV_GEO_BLOCKING }}
-          PYTH_ORACLE=${{ secrets.DEV_PYTH_ORACLE }}
-          EOF
       - name: Login to Public ECR
         uses: docker/login-action@v1
         with:
