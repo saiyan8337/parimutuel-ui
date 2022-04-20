@@ -57,4 +57,8 @@ const Home: NextPage = () => {
   );
 };
 
+Home.getInitialProps = async () => {
+  return {};
+};
+
 export default Home;
