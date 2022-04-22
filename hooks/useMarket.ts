@@ -1,13 +1,13 @@
 import { useMemo } from "react";
-
-import { useParimutuel } from "@contexts/parimutuel";
-import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
 import {
   isParimutuelAccount,
   ParimutuelAccount,
   ParimutuelMarket,
   ParimutuelPosition,
 } from "parimutuel-web3";
+
+import { useParimutuel } from "@contexts/parimutuel";
+import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
 
 export type MarketBoardItem = {
   key: { parimutuelPubkey: string; marketPubkey: string };
@@ -74,18 +74,18 @@ export const parseMarket = (
       short: shortPosition / 100,
     },
     locked: {
-      price: strike.toNumber() / 10 ** 9,
+      price: strike.toNumber() / 10 ** 8,
     },
     settled: {
-      price: index.toNumber() / 10 ** 9,
+      price: index.toNumber() / 10 ** 8,
     },
     payout: {
       longPosition: longPosition / 100,
       shortPosition: shortPosition / 100,
       longPool: activeLongPositions.toNumber() / 100,
       shortPool: activeShortPositions.toNumber() / 100,
-      lockedPrice: strike.toNumber() / 10 ** 9,
-      settledPrice: index.toNumber() / 10 ** 9,
+      lockedPrice: strike.toNumber() / 10 ** 8,
+      settledPrice: index.toNumber() / 10 ** 8,
       parimutuelPubkey: parimutuelAccount.pubkey.toBase58(),
       marketPubkey: parimutuel.marketKey,
       isExpired: !!expired,
