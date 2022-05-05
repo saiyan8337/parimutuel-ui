@@ -9374,10 +9374,10 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parimutuel-web3@^0.0.27:
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.27.tgz#f3002edc0e2ec9dbffebec4ec5951c1e5418a155"
-  integrity sha512-sM2qD08DTTpuevxqNP6e///8Zt6yBh1Izec7avbEvqtxPNg6cztEmpT1sKY5igcca6KD/71FH+NiZWyJrbCmXg==
+parimutuel-web3@^0.0.28:
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.28.tgz#5a2f122624bdefc11232624b90d7c01c1b55f403"
+  integrity sha512-MQLGgioBH/BlxUy3tYsa+B5x1XjApqpg+P05+fxtIRpeRoVPwCc97rrR5TSu6dtDUT5WR8H9vsLT2Msh4be4ag==
   dependencies:
     "@solana/spl-token" "^0.1.8"
     "@solana/wallet-adapter-base" "^0.7.0"
