@@ -1,7 +1,8 @@
 import getConfig from "next/config";
 import { ConfigEnum, DEV_CONFIG, ParimutuelConfig, STAGING_CONFIG } from "parimutuel-web3";
 
-export const getWeb3Config = (config?: ParimutuelConfig) => {
+// eslint-disable-next-line
+export const getWeb3Config = (config?: ParimutuelConfig): any => {
   const {
     publicRuntimeConfig: { APP_ENV },
   } = getConfig();
