@@ -1,10 +1,15 @@
 import React, { useContext, useState } from "react";
-import { MarketPairEnum, MIN_1, PositionSideEnum } from "parimutuel-web3";
+import getConfig from "next/config";
+import { ConfigEnum, MarketPairEnum, MIN_1, MIN_5, PositionSideEnum } from "parimutuel-web3";
 
 import { PositionSummaryOptionEnum } from "@utils/utils";
 
 // TODO: make position summary its own context
 // We need to add PositionSummaryOptionEnum in the library
+
+const {
+  publicRuntimeConfig: { APP_ENV },
+} = getConfig();
 
 type SettingContextProps = {
   selectedMarketPair: MarketPairEnum;
@@ -21,7 +26,7 @@ type SettingContextProps = {
 
 const defaultContext: SettingContextProps = {
   selectedMarketPair: MarketPairEnum.SOLUSD,
-  selectedDurations: [MIN_1],
+  selectedDurations: [APP_ENV === ConfigEnum.DEV ? MIN_1 : MIN_5],
   selectedParimutuel: "",
   positionSide: PositionSideEnum.LONG,
   positionSummaryOption: PositionSummaryOptionEnum.ALL,
