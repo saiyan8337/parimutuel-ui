@@ -50,12 +50,12 @@ const nextConfig = {
     GOOGLE_WHITELIST_SHEET_ID: process.env.GOOGLE_WHITELIST_SHEET_ID,
     GOOGLE_BLACKLIST_SHEET_ID: process.env.GOOGLE_BLACKLIST_SHEET_ID,
     IP_STACK_API_KEY: process.env.IP_STACK_API_KEY,
-    GEO_BLOCKING: process.env.GEO_BLOCKING !== "false"
+    GEO_BLOCKING: process.env.GEO_BLOCKING !== "false",
   },
   publicRuntimeConfig: {
     APP_ENV: process.env.APP_ENV,
     PYTH_ORACLE: process.env.PYTH_ORACLE,
-  }
+  },
 };
 
 module.exports = withPlugins(plugins, nextConfig);

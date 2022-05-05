@@ -17,7 +17,7 @@ export const CurrentPriceColumn: React.FC<CurrentPriceColumnProps> = ({ price, .
       {...restProps}
     >
       <Text textStyle="small" color="white">
-        {((price * 1000) / 1000).toFixed(3)}
+        {`$${((price * 1000) / 1000).toFixed(3)}`}
       </Text>
     </Flex>
   );

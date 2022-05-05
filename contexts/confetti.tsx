@@ -1,7 +1,8 @@
 import React, { useCallback, useContext, useState } from "react";
-import Particles, { Container, Main } from "react-tsparticles";
+import Particles from "react-tsparticles";
 
 import config from "@constants/animation";
+import type { Container, Engine } from "tsparticles";
 
 type ConfettiContextProps = {
   showConfetti: () => void;
@@ -31,10 +32,11 @@ export const ConfettiProvider: React.FC = ({ children }) => {
 
   const options: any = { ...config, autoPlay: true }; // eslint-disable-line
 
-  const particlesInit = (main: Main) => {
-    console.log(main);
+  const particlesInit = async (engine: Engine): Promise<void> => {
+    console.log(engine);
   };
-  const particlesLoaded = (container: Container) => {
+
+  const particlesLoaded = async (container: Container): Promise<void> => {
     console.log("container", container);
   };
 

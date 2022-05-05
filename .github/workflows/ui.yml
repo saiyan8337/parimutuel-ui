@@ -1,0 +1,82 @@
+#
+# Github Actions for UI
+#
+
+name: UI Workflow
+
+on:
+  pull_request:
+    types: ["opened", "closed"]
+    branches:
+      - master
+
+env:
+  AWS_REGION: us-west-2
+  ECR_REGISTRY: 905383583349.dkr.ecr.eu-west-2.amazonaws.com
+  ECR_REPOSITORY: parimutuel-ui
+  NODE_VERSION: 14
+
+jobs:
+  lint_tsc:
+    name: Run ESLint and Type Check
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
+      - name: Linting
+        run: yarn lint
+      - name: Type checking
+        run: yarn type-check
+
+  build:
+    if: github.event.pull_request.merged == true
+    needs: lint_tsc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Copy library from S3
+        run: |
+          aws s3 sync s3://trading-view-library/charting_library/ ./public/library/charting_library/
+          aws s3 sync s3://trading-view-library/datafeeds/ ./public/library/datafeeds/
+      - name: Login to Public ECR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.ECR_REGISTRY }}
+          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS-REGION: ${{ env.AWS_REGION }}
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          IMAGE_TAG: latest
+        run: |
+          # Build a docker container and push it to ECR
+          docker build -f ui.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
