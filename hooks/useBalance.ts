@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { CryptoEnum, MarketPairEnum } from "parimutuel-web3";
 
 import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";
@@ -7,7 +8,6 @@ import { useAccounts } from "@hooks/useAccounts";
 import { useMint } from "@hooks/useMint";
 import { fromLamports } from "@utils/mint";
 import { getCryptoAbbr, getCryptoAddress } from "@utils/utils";
-import { CryptoEnum, MarketPairEnum } from "parimutuel-web3";
 
 type Balance = {
   cryptoAmount: number;

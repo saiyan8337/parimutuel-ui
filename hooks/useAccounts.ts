@@ -1,5 +1,6 @@
-import { useAccountsContext } from "@contexts/accounts";
 import { TokenAccount } from "parimutuel-web3";
+
+import { useAccountsContext } from "@contexts/accounts";
 
 export const useAccounts = (): {
   userAccounts: TokenAccount[];

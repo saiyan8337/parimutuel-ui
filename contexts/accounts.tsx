@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { decodeAccount, decodeMint, TokenAccount } from "parimutuel-web3";
 import { AccountLayout, MintInfo, TOKEN_PROGRAM_ID, u64 } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { AccountInfo, Connection, PublicKey } from "@solana/web3.js";
@@ -6,7 +7,6 @@ import { AccountInfo, Connection, PublicKey } from "@solana/web3.js";
 import { EventEmitter } from "@utils/eventEmitter";
 import { getMintInfo } from "@utils/mint";
 import { AccountParser, ParsedAccountBase, TokenAccountParser } from "@utils/parser";
-import { decodeAccount, decodeMint, TokenAccount } from "parimutuel-web3";
 
 type AccountsContextProps = {
   userAccounts: TokenAccount[];
