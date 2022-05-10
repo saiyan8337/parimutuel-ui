@@ -1,16 +1,15 @@
 import { useMemo } from "react";
 import {
   isParimutuelAccount,
+  MarketPairEnum,
   ParimutuelAccount,
   ParimutuelMarket,
   ParimutuelPosition,
 } from "parimutuel-web3";
 
-import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";
+import { usePyth } from "@contexts/pyth";
 import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
-
-import { useMint } from "./useMint";
 
 export type MarketBoardItem = {
   key: { parimutuelPubkey: string; marketPubkey: string };
@@ -98,14 +97,13 @@ export const parseMarket = (
 };
 
 export const useMarket = () => {
+  const { priceMap } = usePyth();
   const { positions, markets, parimutuels } = useParimutuel();
 
-  const { USDC_MINT } = getWeb3Config();
-  const usdcAddress = USDC_MINT.toString();
-
-  const usdcMint = useMint(usdcAddress);
-
-  console.log("decimals", usdcMint?.decimals);
+  const usdDecimal = useMemo(() => {
+    const price = priceMap[MarketPairEnum.SOLUSD];
+    return Math.abs(price?.priceData.exponent) ?? 0;
+  }, [priceMap]);
 
   const settledParimutuels = useMemo(
     () =>
@@ -118,11 +116,11 @@ export const useMarket = () => {
           return new Date().getTime() > parimutuel.timeWindowStart.toNumber() + duration * 1000;
         })
         .map((account) => {
-          const data = parseMarket(account, markets, positions, usdcMint?.decimals ?? 9);
+          const data = parseMarket(account, markets, positions, usdDecimal);
           return data;
         })
         .sort((a, b) => a.time.startTime - b.time.startTime),
-    [parimutuels, markets, positions, usdcMint?.decimals],
+    [parimutuels, markets, positions, usdDecimal],
   );
 
   const upcomingParimutuels = useMemo(
@@ -133,11 +131,11 @@ export const useMarket = () => {
           (account) => account.info.parimutuel.timeWindowStart.toNumber() > new Date().getTime(),
         )
         .map((account) => {
-          const data = parseMarket(account, markets, positions, usdcMint?.decimals ?? 9);
+          const data = parseMarket(account, markets, positions, usdDecimal);
           return data;
         })
         .sort((a, b) => a.time.startTime - b.time.startTime),
-    [parimutuels, markets, positions, usdcMint?.decimals],
+    [parimutuels, markets, positions, usdDecimal],
   );
 
   const liveParimutuels = useMemo(
@@ -155,11 +153,11 @@ export const useMarket = () => {
           );
         })
         .map((account) => {
-          const data = parseMarket(account, markets, positions, usdcMint?.decimals ?? 9);
+          const data = parseMarket(account, markets, positions, usdDecimal);
           return data;
         })
         .sort((a, b) => a.time.startTime - b.time.startTime),
-    [parimutuels, markets, positions, usdcMint?.decimals],
+    [parimutuels, markets, positions, usdDecimal],
   );
 
   return { settledParimutuels, upcomingParimutuels, liveParimutuels };
