@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { TokenAccount } from "parimutuel-web3";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 
 import { cache } from "@contexts/accounts";
 import { TokenAccountParser } from "@utils/parser";
-import { TokenAccount } from "parimutuel-web3";
 
 export const useAccount = (pubKey?: PublicKey) => {
   const { connection } = useConnection();

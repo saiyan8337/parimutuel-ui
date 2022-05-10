@@ -1,13 +1,13 @@
 import { useMemo } from "react";
-
-import { useParimutuel } from "@contexts/parimutuel";
-import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
 import {
   getMarketStatus,
   MarketStatusEnum,
   ParimutuelMarket,
   ParimutuelPosition,
 } from "parimutuel-web3";
+
+import { useParimutuel } from "@contexts/parimutuel";
+import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
 
 export type PositionItem = {
   key: {
