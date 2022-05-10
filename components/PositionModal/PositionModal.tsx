@@ -18,10 +18,12 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 
 import Countdown from "@components/Countdown/Countdown";
+import { getWeb3Config } from "@constants/config";
 import { useModal } from "@contexts/modal";
 import { useParimutuel } from "@contexts/parimutuel";
 import { useSetting } from "@contexts/setting";
 import { useBalance } from "@hooks/useBalance";
+import { useMint } from "@hooks/useMint";
 import { useNotify } from "@hooks/useNotify";
 import downArrowSvg from "@public/images/arrow_down.svg";
 import upArrowSvg from "@public/images/arrow_up.svg";
@@ -36,12 +38,19 @@ export const PositionModal: React.FC = () => {
   const { selectedParimutuel, positionSide } = useSetting();
   const { isPositionShown, setIsPositionShown } = useModal();
   const { selectedMarketPair } = useSetting();
-  const { web3, parimutuels, getPositions } = useParimutuel();
+  const { web3, parimutuels, getPositions, markets } = useParimutuel();
   const { usdcBalance } = useBalance();
   const wallet = useWallet();
   const [play] = useSound(clickSound);
   const notify = useNotify();
   const [amount, setAmount] = useState("");
+
+  const { USDC_MINT } = getWeb3Config();
+  const usdcAddress = USDC_MINT.toString();
+
+  const usdcMint = useMint(usdcAddress);
+  const usdcDecimals = useMemo(() => usdcMint?.decimals ?? 0, [usdcMint]);
+  const contractSize = useMemo(() => markets[0]?.info.market.contractSize.toNumber(), [markets]);
 
   const parimutuelAccount = useMemo(
     () => parimutuels.find((parimutuel) => parimutuel.pubkey.toBase58() === selectedParimutuel),
@@ -68,7 +77,7 @@ export const PositionModal: React.FC = () => {
     const transactionId = await web3?.placePosition(
       wallet as WalletSigner,
       new PublicKey(selectedParimutuel),
-      parseFloat(amount),
+      parseFloat(amount) * (10 ** usdcDecimals / contractSize),
       isLong ? 0 : 1,
     );
 
@@ -81,15 +90,17 @@ export const PositionModal: React.FC = () => {
       setIsPositionShown(false);
     }
   }, [
-    amount,
-    web3,
-    getPositions,
-    isLong,
     play,
-    setIsPositionShown,
-    selectedParimutuel,
+    web3,
     wallet,
+    selectedParimutuel,
+    amount,
+    usdcDecimals,
+    contractSize,
+    isLong,
     notify,
+    getPositions,
+    setIsPositionShown,
   ]);
 
   const handleInputChange = useCallback((e) => {

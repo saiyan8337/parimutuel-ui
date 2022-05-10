@@ -68,13 +68,13 @@ export const parseMarket = (
       endTime: timeWindowStart.toNumber() + duration * 1000,
     },
     pool: {
-      poolSize: (activeLongPositions.toNumber() + activeShortPositions.toNumber()) / 100,
-      long: activeLongPositions.toNumber() / 100,
-      short: activeShortPositions.toNumber() / 100,
+      poolSize: activeLongPositions.toNumber() + activeShortPositions.toNumber(),
+      long: activeLongPositions.toNumber(),
+      short: activeShortPositions.toNumber(),
     },
     position: {
-      long: longPosition / 100,
-      short: shortPosition / 100,
+      long: longPosition,
+      short: shortPosition,
     },
     locked: {
       price: strike.toNumber() / 10 ** decimal,
@@ -83,10 +83,10 @@ export const parseMarket = (
       price: index.toNumber() / 10 ** decimal,
     },
     payout: {
-      longPosition: longPosition / 100,
-      shortPosition: shortPosition / 100,
-      longPool: activeLongPositions.toNumber() / 100,
-      shortPool: activeShortPositions.toNumber() / 100,
+      longPosition: longPosition,
+      shortPosition: shortPosition,
+      longPool: activeLongPositions.toNumber(),
+      shortPool: activeShortPositions.toNumber(),
       lockedPrice: strike.toNumber() / 10 ** decimal,
       settledPrice: index.toNumber() / 10 ** decimal,
       parimutuelPubkey: parimutuelAccount.pubkey.toBase58(),

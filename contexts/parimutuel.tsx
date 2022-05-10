@@ -89,19 +89,11 @@ export const ParimutuelProvider: React.FC = ({ children }) => {
     if (!network || !markets) return;
     const market = markets[0];
     const {
-      network: {
-        protocolFeeAccountPubkey,
-        protocolFeeAmount,
-        settlementFeeAccountPubkey,
-        settlementFeeAmount,
-      },
+      network: { protocolFeeAmount, settlementFeeAmount },
     } = await web3.getFees(
       new PublicKey(network.info.network.authority),
       new PublicKey(market.info.market.authority),
     );
-
-    console.log(protocolFeeAccountPubkey.toBase58());
-    console.log(settlementFeeAccountPubkey.toBase58());
 
     setProtocolFeeAmount(protocolFeeAmount);
     setSettlementFeeAmount(settlementFeeAmount);
