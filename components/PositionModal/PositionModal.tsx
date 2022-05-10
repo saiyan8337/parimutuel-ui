@@ -68,7 +68,7 @@ export const PositionModal: React.FC = () => {
     const transactionId = await web3?.placePosition(
       wallet as WalletSigner,
       new PublicKey(selectedParimutuel),
-      parseFloat(amount) * 100,
+      parseFloat(amount),
       isLong ? 0 : 1,
     );
 
