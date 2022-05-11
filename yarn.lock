@@ -5839,7 +5839,7 @@ encodeurl@~1.0.2:
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
 
-encoding@0.1.13:
+encoding@0.1.13, encoding@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.13.tgz#56574afdd791f54a8e9b2785c0582a2d26210fa9"
   integrity sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==
@@ -9374,10 +9374,10 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parimutuel-web3@^0.0.28:
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.28.tgz#5a2f122624bdefc11232624b90d7c01c1b55f403"
-  integrity sha512-MQLGgioBH/BlxUy3tYsa+B5x1XjApqpg+P05+fxtIRpeRoVPwCc97rrR5TSu6dtDUT5WR8H9vsLT2Msh4be4ag==
+parimutuel-web3@^0.0.30:
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/parimutuel-web3/-/parimutuel-web3-0.0.30.tgz#41a72543f6c62a1720b6e212c388ba62133de645"
+  integrity sha512-EKh8pFxTP81N5oSSQk5g24lXD51ihQT2AI4zmSplr4PE+auElUTDNaPW3AYDsaHdvOMh8LjQQRBQ7SJfAe/qeA==
   dependencies:
     "@solana/spl-token" "^0.1.8"
     "@solana/wallet-adapter-base" "^0.7.0"
