@@ -1,0 +1,98 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "parimutuel-ui",
+      "image": "905383583349.dkr.ecr.eu-west-2.amazonaws.com/parimutuel-ui",
+      "cpu": 0,
+      "links": [],
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "command": [],
+      "environment": [
+        {
+          "name": "GEO_BLOCKING",
+          "value": "false"
+        },
+        {
+          "name": "APP_ENV",
+          "value": "dev"
+        },
+        {
+          "name": "PYTH_ORACLE",
+          "value": "BmA9Z6FjioHJPpjT39QazZyhDRUdZy2ezwx4GiDdE2u2"
+        },
+        {
+          "name": "GOOGLE_BLACKLIST_SHEET_ID",
+          "value": "1eZX_0bss_-Y_reyU-VJ9YtzmlJFpExFG68I7335eD2Q"
+        },
+        {
+          "name": "GOOGLE_SERVICE_ACCOUNT_EMAIL",
+          "value": "whitelist@whitelist-335106.iam.gserviceaccount.com"
+        },
+        {
+          "name": "GOOGLE_WHITELIST_SHEET_ID",
+          "value": "1TeFtBN25NJgGDTmFA4iGdY60rSIf61VQgt1fCAjUVnU"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "secrets": [
+        {
+          "name": "GOOGLE_PRIVATE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:eu-west-2:905383583349:secret:parimutuel-ui-dev-iyHYWG:GOOGLE_PRIVATE_KEY::"
+        },
+        {
+          "name": "AUTHORITY_KEY_PAIR",
+          "valueFrom": "arn:aws:secretsmanager:eu-west-2:905383583349:secret:parimutuel-ui-dev-iyHYWG:AUTHORITY_KEY_PAIR::"
+        },
+        {
+          "name": "IP_STACK_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:eu-west-2:905383583349:secret:parimutuel-ui-dev-iyHYWG:IP_STACK_API_KEY::"
+        }
+      ],
+      "dnsServers": [],
+      "dnsSearchDomains": [],
+      "extraHosts": [],
+      "dockerSecurityOptions": [],
+      "dockerLabels": {},
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/parimutuel-ui-dev",
+          "awslogs-region": "eu-west-2",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
+    }
+  ],
+  "family": "parimutuel-ui-dev",
+  "executionRoleArn": "arn:aws:iam::905383583349:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "3072",
+  "tags": [
+    {
+      "key": "ecs:taskDefinition:createdFrom",
+      "value": "ecs-console-v2"
+    },
+    {
+      "key": "ecs:taskDefinition:stackId",
+      "value": "arn:aws:cloudformation:eu-west-2:905383583349:stack/ECS-Console-V2-TaskDefinition-53008527-05bd-4878-939a-8158c5b53aaa/dcf679e0-d167-11ec-b1ff-06af31180c94"
+    }
+  ]
+}
