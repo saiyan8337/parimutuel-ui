@@ -6,7 +6,9 @@ import {
   ParimutuelPosition,
 } from "parimutuel-web3";
 
+import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";
+import { useMint } from "@hooks/useMint";
 import { getMarketByPubkey, getMarketPairByPubkey } from "@utils/utils";
 
 export type PositionItem = {
@@ -24,10 +26,34 @@ export type PositionItem = {
 export const parseMyPositions = (
   position: ParimutuelPosition,
   markets: ParimutuelMarket[],
+  settlementTokenDecimals: number,
+  settlementTokenContractSize: number,
 ): PositionItem => {
   const { info } = position;
   const market = getMarketByPubkey(info.parimutuel.marketKey, markets);
   const duration = market?.info.market.duration.toNumber() ?? 0;
+
+  const poolSize =
+    (info.parimutuel.activeLongPositions.toNumber() +
+      info.parimutuel.activeShortPositions.toNumber()) /
+    10 ** settlementTokenDecimals /
+    settlementTokenContractSize;
+  const poolLong =
+    info.parimutuel.activeLongPositions.toNumber() /
+    (10 ** settlementTokenDecimals / settlementTokenContractSize);
+  const poolShort =
+    info.parimutuel.activeShortPositions.toNumber() /
+    (10 ** settlementTokenDecimals / settlementTokenContractSize);
+
+  const positionLong =
+    info.position.longPosition.toNumber() /
+    (10 ** settlementTokenDecimals / settlementTokenContractSize);
+  const positionShort =
+    info.position.shortPosition.toNumber() /
+    (10 ** settlementTokenDecimals / settlementTokenContractSize);
+
+  const lockedPrice = info.parimutuel.strike.toNumber() / 10 ** 8;
+  const settledPrice = info.parimutuel.index.toNumber() / 10 ** 8;
 
   const marketStatus = getMarketStatus(
     info.parimutuel.marketClose.toString(),
@@ -49,34 +75,37 @@ export const parseMyPositions = (
       startTime: info.parimutuel.marketClose.toNumber(),
     },
     pool: {
-      poolSize:
-        (info.parimutuel.activeLongPositions.toNumber() +
-          info.parimutuel.activeShortPositions.toNumber()) /
-        100,
-      long: info.parimutuel.activeLongPositions.toNumber() / 100,
-      short: info.parimutuel.activeShortPositions.toNumber() / 100,
+      poolSize,
+      long: poolLong,
+      short: poolShort,
     },
     position: {
-      long: info.position.longPosition.toNumber() / 100,
-      short: info.position.shortPosition.toNumber() / 100,
+      long: positionLong,
+      short: positionShort,
     },
     locked: {
-      price: info.parimutuel.strike.toNumber() / 10 ** 9,
+      price: lockedPrice,
     },
     settled: {
-      price: info.parimutuel.index.toNumber() / 10 ** 9,
+      price: settledPrice,
     },
   };
 };
 
 export const usePosition = () => {
+  const { USDC_MINT } = getWeb3Config();
   const { positions, markets } = useParimutuel();
+
+  const usdcMint = useMint(USDC_MINT);
+  const usdcDecimals = useMemo(() => usdcMint?.decimals ?? 0, [usdcMint]);
+  const contractSize = useMemo(() => markets[0]?.info.market.contractSize.toNumber(), [markets]);
+
   const parsedPositions = useMemo(
     () =>
       positions
-        .map((position) => parseMyPositions(position, markets))
+        .map((position) => parseMyPositions(position, markets, usdcDecimals, contractSize))
         .sort((a, b) => b.time.startTime - a.time.startTime),
-    [positions, markets],
+    [positions, markets, usdcDecimals, contractSize],
   );
 
   return { positions: parsedPositions };
