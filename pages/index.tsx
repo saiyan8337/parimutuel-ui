@@ -13,6 +13,7 @@ import MarketPanel from "@components/MarketPanel/MarketPanel";
 import MarketSelectPanel from "@components/MarketSelectPanel/MarketSelectPanel";
 import PositionPanel from "@components/PositionPanel/PositionPanel";
 import StakingPanel from "@components/StakingPanel/StakingPanel";
+import { getWeb3Config } from "@constants/config";
 
 const TradingView = dynamic(
   () => import("@components/TradingView/TradingView").then((mod) => mod as any), // eslint-disable-line
@@ -20,6 +21,8 @@ const TradingView = dynamic(
 );
 
 const Home: NextPage = () => {
+  const config = getWeb3Config();
+  console.log(`Using config for program id: ${config.PARIMUTUEL_PROGRAM_ID.toBase58()}:`, config);
   return (
     <Flex
       flexDirection="column"
