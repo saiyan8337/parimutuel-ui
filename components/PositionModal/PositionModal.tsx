@@ -155,7 +155,7 @@ export const PositionModal: React.FC = () => {
             </Flex>
             <Flex flexDirection="row" alignItems="center" justifyContent="flex-start" mt="8px">
               <Text textStyle="accent" color="white">
-                {`$${poolSize / 100} / ${odd}X`}
+                {`$${poolSize / (10 ** usdcDecimals / contractSize)} / ${odd}X`}
               </Text>
             </Flex>
             <Flex
