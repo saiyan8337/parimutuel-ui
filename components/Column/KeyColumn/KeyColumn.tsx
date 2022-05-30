@@ -17,6 +17,7 @@ export const KeyColumn: React.FC<KeyColumnProps> = ({ pubkey, ...restProps }) =>
       borderBottomColor="brand.100"
       borderRight="1px"
       borderRightColor="brand.100"
+      title={pubkey}
       {...restProps}
     >
       <Text textStyle="small" color="white">
