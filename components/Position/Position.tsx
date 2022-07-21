@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { calculateOdd, MarketStatusEnum } from "parimutuelsdk";
+import { calculateOdd, MarketStatusEnum } from "@hxronetwork/parimutuelsdk";
 import { Flex, FlexProps, Image, Text } from "@chakra-ui/react";
 
 import Countdown from "@components/Countdown/Countdown";

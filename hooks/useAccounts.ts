@@ -1,4 +1,4 @@
-import { TokenAccount } from "parimutuelsdk";
+import { TokenAccount } from "@hxronetwork/parimutuelsdk";
 
 import { useAccountsContext } from "@contexts/accounts";
 

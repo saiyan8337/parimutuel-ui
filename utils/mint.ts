@@ -1,4 +1,4 @@
-import { decodeMint, TokenAccount } from "parimutuelsdk";
+import { decodeMint, TokenAccount } from "@hxronetwork/parimutuelsdk";
 import { MintInfo } from "@solana/spl-token";
 import { Connection, PublicKey } from "@solana/web3.js";
 

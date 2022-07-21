@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { CryptoEnum } from "parimutuelsdk";
+import { CryptoEnum } from "@hxronetwork/parimutuelsdk";
 import { Box, Button, Flex, FlexProps, Image, Text } from "@chakra-ui/react";
 
 import { useModal } from "@contexts/modal";

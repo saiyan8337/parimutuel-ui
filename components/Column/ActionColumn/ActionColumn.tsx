@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { PositionSideEnum } from "parimutuelsdk";
+import { PositionSideEnum } from "@hxronetwork/parimutuelsdk";
 import useSound from "use-sound";
 import { Box, Flex, FlexProps, Image } from "@chakra-ui/react";
 

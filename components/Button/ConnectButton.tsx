@@ -1,5 +1,5 @@
 import React from "react";
-import { shortenAddress } from "parimutuelsdk";
+import { shortenAddress } from "@hxronetwork/parimutuelsdk";
 import {
   Box,
   Button,

@@ -1,5 +1,5 @@
 import React from "react";
-import { DAY_1, HR_1, MarketPairEnum, MIN_1, MIN_5, MIN_15 } from "parimutuelsdk";
+import { DAY_1, HR_1, MarketPairEnum, MIN_1, MIN_5, MIN_15 } from "@hxronetwork/parimutuelsdk";
 import useSound from "use-sound";
 import { Flex, Image, Text } from "@chakra-ui/react";
 

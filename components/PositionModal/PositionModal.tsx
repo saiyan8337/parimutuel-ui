@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import ReactSlider from "react-slider";
-import { calculateOdd, PositionSideEnum, WalletSigner } from "parimutuelsdk";
+import { calculateOdd, PositionSideEnum, WalletSigner } from "@hxronetwork/parimutuelsdk";
 import useSound from "use-sound";
 import {
   Box,

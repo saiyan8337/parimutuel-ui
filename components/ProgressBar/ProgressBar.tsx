@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MarketStatusEnum } from "parimutuelsdk";
+import { MarketStatusEnum } from "@hxronetwork/parimutuelsdk";
 import { Box, BoxProps } from "@chakra-ui/react";
 
 export type ProgressBarProps = BoxProps & {

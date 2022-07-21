@@ -5,7 +5,7 @@ import {
   ParimutuelAccount,
   ParimutuelMarket,
   ParimutuelPosition,
-} from "parimutuelsdk";
+} from "@hxronetwork/parimutuelsdk";
 
 import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";

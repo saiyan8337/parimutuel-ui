@@ -1,5 +1,5 @@
 import React from "react";
-import { shortenAddress } from "parimutuelsdk";
+import { shortenAddress } from "@hxronetwork/parimutuelsdk";
 import { Flex, FlexProps, Text } from "@chakra-ui/react";
 
 export type KeyColumnProps = FlexProps & {

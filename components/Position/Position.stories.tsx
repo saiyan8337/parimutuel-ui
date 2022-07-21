@@ -1,5 +1,5 @@
 import React from "react";
-import { MarketStatusEnum } from "parimutuelsdk";
+import { MarketStatusEnum } from "@hxronetwork/parimutuelsdk";
 
 import { Story } from "@storybook/react";
 

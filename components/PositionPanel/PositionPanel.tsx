@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { MarketStatusEnum } from "parimutuelsdk";
+import { MarketStatusEnum } from "@hxronetwork/parimutuelsdk";
 import { Flex } from "@chakra-ui/react";
 
 import PanelName from "@components/PanelName/PanelName";

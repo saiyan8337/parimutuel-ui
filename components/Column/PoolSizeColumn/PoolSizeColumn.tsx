@@ -1,5 +1,5 @@
 import React from "react";
-import { calculateOdd } from "parimutuelsdk";
+import { calculateOdd } from "@hxronetwork/parimutuelsdk";
 import { Flex, FlexProps, Image, Text } from "@chakra-ui/react";
 
 import downArrowSvg from "@public/images/arrow_down.svg";

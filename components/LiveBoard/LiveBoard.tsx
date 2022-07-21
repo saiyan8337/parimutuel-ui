@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Column, useSortBy, useTable } from "react-table";
-import { getMarketPubkeys, shortenAddress } from "parimutuelsdk";
+import { getMarketPubkeys, shortenAddress } from "@hxronetwork/parimutuelsdk";
 import { Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 
 import CurrentPriceColumn from "@components/Column/CurrentPriceColumn/CurrentPriceColumn";

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { getMarketPubkeys, WalletSigner } from "parimutuelsdk";
+import { getMarketPubkeys, WalletSigner } from "@hxronetwork/parimutuelsdk";
 import {
   Box,
   Button,

@@ -1,5 +1,5 @@
 import React from "react";
-import { CryptoEnum } from "parimutuelsdk";
+import { CryptoEnum } from "@hxronetwork/parimutuelsdk";
 
 import { Story } from "@storybook/react";
 

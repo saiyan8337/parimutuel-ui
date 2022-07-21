@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { CryptoEnum, MarketPairEnum } from "parimutuelsdk";
+import { CryptoEnum, MarketPairEnum } from "@hxronetwork/parimutuelsdk";
 
 import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";
