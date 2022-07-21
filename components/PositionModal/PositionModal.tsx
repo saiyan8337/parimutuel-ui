@@ -79,6 +79,7 @@ export const PositionModal: React.FC = () => {
       new PublicKey(selectedParimutuel),
       parseFloat(amount) * (10 ** usdcDecimals / contractSize),
       isLong ? 0 : 1,
+      Date.now()
     );
 
     if (transactionId) {
