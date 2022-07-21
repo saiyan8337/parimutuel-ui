@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import ReactSlider from "react-slider";
-import { calculateOdd, PositionSideEnum, WalletSigner } from "parimutuel-web3";
+import { calculateOdd, PositionSideEnum, WalletSigner } from "@hxronetwork/parimutuelsdk";
 import useSound from "use-sound";
 import {
   Box,
@@ -79,6 +79,7 @@ export const PositionModal: React.FC = () => {
       new PublicKey(selectedParimutuel),
       parseFloat(amount) * (10 ** usdcDecimals / contractSize),
       isLong ? 0 : 1,
+      Date.now()
     );
 
     if (transactionId) {

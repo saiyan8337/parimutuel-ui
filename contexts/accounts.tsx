@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { decodeAccount, decodeMint, TokenAccount } from "parimutuel-web3";
+import { decodeAccount, decodeMint, TokenAccount } from "@hxronetwork/parimutuelsdk";
 import { AccountLayout, MintInfo, TOKEN_PROGRAM_ID, u64 } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { AccountInfo, Connection, PublicKey } from "@solana/web3.js";

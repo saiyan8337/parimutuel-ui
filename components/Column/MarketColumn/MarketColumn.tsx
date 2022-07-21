@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDuration } from "parimutuel-web3";
+import { formatDuration } from "@hxronetwork/parimutuelsdk";
 import { Flex, FlexProps, Text } from "@chakra-ui/react";
 
 export type MarketColumnProps = FlexProps & {

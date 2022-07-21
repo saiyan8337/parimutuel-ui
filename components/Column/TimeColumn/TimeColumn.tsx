@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { formatDate, formatHour } from "parimutuel-web3";
+import { formatDate, formatHour } from "@hxronetwork/parimutuelsdk";
 import { Flex, FlexProps, Text } from "@chakra-ui/react";
 
 import Countdown from "@components/Countdown/Countdown";

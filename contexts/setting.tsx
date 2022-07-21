@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import getConfig from "next/config";
-import { ConfigEnum, MarketPairEnum, MIN_1, MIN_5, PositionSideEnum } from "parimutuel-web3";
+import { ConfigEnum, MarketPairEnum, MIN_1, MIN_5, PositionSideEnum } from "@hxronetwork/parimutuelsdk";
 
 import { PositionSummaryOptionEnum } from "@utils/utils";
 

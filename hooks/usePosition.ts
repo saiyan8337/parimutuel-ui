@@ -4,7 +4,7 @@ import {
   MarketStatusEnum,
   ParimutuelMarket,
   ParimutuelPosition,
-} from "parimutuel-web3";
+} from "@hxronetwork/parimutuelsdk";
 
 import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";

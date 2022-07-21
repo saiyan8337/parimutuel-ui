@@ -1,4 +1,4 @@
-import { CryptoEnum, getMarketPubkeys, MarketPairEnum, ParimutuelMarket } from "parimutuel-web3";
+import { CryptoEnum, getMarketPubkeys, MarketPairEnum, ParimutuelMarket } from "@hxronetwork/parimutuelsdk";
 import { PublicKey } from "@solana/web3.js";
 
 import { getWeb3Config } from "@constants/config";

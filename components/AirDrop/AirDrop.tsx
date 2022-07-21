@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { CryptoEnum } from "parimutuel-web3";
+import { CryptoEnum } from "@hxronetwork/parimutuelsdk";
 import {
   Button,
   Flex,

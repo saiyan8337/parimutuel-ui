@@ -1,5 +1,5 @@
 import React from "react";
-import { WalletSigner } from "parimutuel-web3";
+import { WalletSigner } from "@hxronetwork/parimutuelsdk";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";

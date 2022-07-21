@@ -1,5 +1,5 @@
 import getConfig from "next/config";
-import { ConfigEnum, DEV_CONFIG, ParimutuelConfig, STAGING_CONFIG } from "parimutuel-web3";
+import { ConfigEnum, DEV_CONFIG, ParimutuelConfig, STAGING_CONFIG } from "@hxronetwork/parimutuelsdk";
 
 // eslint-disable-next-line
 export const getWeb3Config = (config?: ParimutuelConfig): any => {

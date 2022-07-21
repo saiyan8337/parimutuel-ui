@@ -1,5 +1,5 @@
 import React from "react";
-import { CryptoEnum } from "parimutuel-web3";
+import { CryptoEnum } from "@hxronetwork/parimutuelsdk";
 import { Flex } from "@chakra-ui/react";
 
 import Balance from "@components/Balance/Balance";

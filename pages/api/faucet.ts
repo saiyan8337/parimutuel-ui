@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import getConfig from "next/config";
-import { ParimutuelWeb3 } from "parimutuel-web3";
+import { ParimutuelWeb3 } from "@hxronetwork/parimutuelsdk";
 import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 
 import { getWeb3Config } from "@constants/config";

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import getConfig from "next/config";
-import { MarketPairEnum } from "parimutuel-web3";
+import { MarketPairEnum } from "@hxronetwork/parimutuelsdk";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { AccountInfo, PublicKey } from "@solana/web3.js";
 

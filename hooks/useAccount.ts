@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TokenAccount } from "parimutuel-web3";
+import { TokenAccount } from "@hxronetwork/parimutuelsdk";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 
