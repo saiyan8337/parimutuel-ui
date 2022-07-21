@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { CryptoEnum } from "parimutuel-web3";
+import { CryptoEnum } from "parimutuelsdk";
 import { Box, Flex, FlexProps, Image, Text } from "@chakra-ui/react";
 
 import balanceBgSvg from "@public/images/balance_bg.svg";

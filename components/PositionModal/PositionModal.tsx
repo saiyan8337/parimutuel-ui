@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import ReactSlider from "react-slider";
-import { calculateOdd, PositionSideEnum, WalletSigner } from "parimutuel-web3";
+import { calculateOdd, PositionSideEnum, WalletSigner } from "parimutuelsdk";
 import useSound from "use-sound";
 import {
   Box,

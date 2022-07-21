@@ -5,7 +5,7 @@ import {
   ParimutuelAccount,
   ParimutuelMarket,
   ParimutuelPosition,
-} from "parimutuel-web3";
+} from "parimutuelsdk";
 
 import { getWeb3Config } from "@constants/config";
 import { useParimutuel } from "@contexts/parimutuel";

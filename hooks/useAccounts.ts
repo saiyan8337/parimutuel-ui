@@ -1,4 +1,4 @@
-import { TokenAccount } from "parimutuel-web3";
+import { TokenAccount } from "parimutuelsdk";
 
 import { useAccountsContext } from "@contexts/accounts";
 

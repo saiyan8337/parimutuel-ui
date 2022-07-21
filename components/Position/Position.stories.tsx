@@ -1,5 +1,5 @@
 import React from "react";
-import { MarketStatusEnum } from "parimutuel-web3";
+import { MarketStatusEnum } from "parimutuelsdk";
 
 import { Story } from "@storybook/react";
 

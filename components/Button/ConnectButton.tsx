@@ -1,5 +1,5 @@
 import React from "react";
-import { shortenAddress } from "parimutuel-web3";
+import { shortenAddress } from "parimutuelsdk";
 import {
   Box,
   Button,

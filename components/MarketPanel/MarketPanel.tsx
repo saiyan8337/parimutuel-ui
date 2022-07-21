@@ -1,6 +1,6 @@
 import React, { Suspense, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { getMarketPubkeys } from "parimutuel-web3";
+import { getMarketPubkeys } from "parimutuelsdk";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 
 import Loader from "@components/Loader/Loader";

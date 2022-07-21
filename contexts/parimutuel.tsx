@@ -9,7 +9,7 @@ import {
   ParimutuelPosition,
   ParimutuelTraderFeePayerAccount,
   ParimutuelWeb3,
-} from "parimutuel-web3";
+} from "parimutuelsdk";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 

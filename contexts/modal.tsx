@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { shortenAddress } from "parimutuel-web3";
+import { shortenAddress } from "parimutuelsdk";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import FeeAccountModal from "@components/FeeAccountModal/FeeAccountModal";

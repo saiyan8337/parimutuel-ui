@@ -1,4 +1,4 @@
-import { decodeAccount, decodeMint, TokenAccount } from "parimutuel-web3";
+import { decodeAccount, decodeMint, TokenAccount } from "parimutuelsdk";
 import { AccountInfo } from "@solana/web3.js";
 
 export interface ParsedAccountBase {
