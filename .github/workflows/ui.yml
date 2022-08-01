@@ -45,7 +45,6 @@ jobs:
         run: yarn type-check
 
   build:
-    if: github.event.pull_request.merged == true
     needs: lint_tsc
     runs-on: ubuntu-latest
     steps:
